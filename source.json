@@ -1,0 +1,7 @@
+{
+  "version": "6.6.5.1",
+  "src": {
+    "url": "https://cdn1.waterfox.net/waterfox/releases/6.6.5.1/Linux_x86_64/waterfox-6.6.5.1.tar.bz2",
+    "hash": "sha512-3mbls4GloH78tEQO0p7JKh6IgecBz/hbV1/DTZQ8MOia6jevIY7iVLy9HZ7LnWqkoXVZDCAQwWx0gHbvIEVrig=="
+  }
+}
