@@ -1,0 +1,41 @@
+name: Update source.json
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout
+        uses: actions@checkout@v4
+        with:
+          fetch-depth: 2
+      
+      - name: Grab Lix
+        uses: canidae-solutions/lix-quick-install-action@v3
+
+      - name: Update source.json
+        run: nix develop -L .#update-source
+        
+      - name: Get diff
+        uses: technote-space/get-diff-action@v6
+        with:
+          FILES: |
+            source.json
+
+      - name: Check package
+        if: env.GIT_DIFF
+        run:
+          nix build .#checks.x86_64-linux.full-version -L --no-link
+
+      - name: Push
+        if: always() && env.GIT_DIFF
+        uses: actions4git/add-commit-push@v1
+        with:
+          commit-message: "bump: Bump waterfox to latest"
+          add-pathspec: |
+            source.json

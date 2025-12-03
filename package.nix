@@ -18,6 +18,7 @@
   libGL,
   lib,
   adwaita-icon-theme,
+  speechd-minimal,
 }:
 
 /*
@@ -60,6 +61,7 @@ stdenv.mkDerivation (self: {
     libva.out
     pciutils
     libGL
+    speechd-minimal
   ];
 
   appendRunpaths = [
