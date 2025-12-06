@@ -19,7 +19,7 @@
   lib,
   adwaita-icon-theme,
   speechd-minimal,
-  copyDesktopItem,
+  copyDesktopItems,
   makeDesktopItem,
 }:
 
@@ -46,6 +46,7 @@ stdenv.mkDerivation (self: {
   nativeBuildInputs = [
     wrapGAppsHook3
     autoPatchelfHook
+    copyDesktopItems
     patchelfUnstable # see patchelfFlags
   ];
 
@@ -96,7 +97,7 @@ stdenv.mkDerivation (self: {
       ];
       startupWMClass = "waterfox";
       startupNotify = false;
-      categories = ["Network" "Web" "Browser"];
+      categories = ["Network" "WebBrowser"];
       comment = "A lightweight, free and open source web browser built for the modern web";
       actions = {
         new-window = {
