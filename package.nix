@@ -19,6 +19,8 @@
   lib,
   adwaita-icon-theme,
   speechd-minimal,
+  copyDesktopItem,
+  makeDesktopItem,
 }:
 
 /*
@@ -71,6 +73,47 @@ stdenv.mkDerivation (self: {
 
   # Firefox uses "relrhack" to manually process relocations from a fixed offset
   patchelfFlags = [ "--no-clobber-old-sections" ];
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "waterfox";
+      desktopName = "Waterfox";
+      exec = "waterfox %u";
+      icon = "waterfox";
+      terminal = false;
+      type = "Application";
+      mimeTypes = [
+        "text/html"
+        "text/xml"
+        "application/xhtml+xml"
+        "application/vnd.mozilla.xul+xml"
+        "text/mml"
+        "x-scheme-handler/http"
+        "x-scheme-handler/https"
+        "application/x-xpinstall"
+        "application/pdf"
+        "application/json"
+      ];
+      startupWMClass = "waterfox";
+      startupNotify = false;
+      categories = ["Network" "Web" "Browser"];
+      comment = "A lightweight, free and open source web browser built for the modern web";
+      actions = {
+        new-window = {
+          name = "Open a new window";
+          exec = "waterfox %u";
+        };
+        new-private-window = {
+          name = "Open a new private window";
+          exec = "waterfox --private-window %u";
+        };
+        profilemanager = {
+          name = "Open the Profile Manager";
+          exec = "waterfox --ProfileManager %u";
+        };
+      };
+    })
+  ];
 
   installPhase = ''
     runHook preInstall
